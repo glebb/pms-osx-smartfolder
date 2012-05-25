@@ -2,5 +2,8 @@
 .project
 .settings/
 lib/
-dist/
+dist/*.jar
 bin/
+*.class
+build/
+.gradle/

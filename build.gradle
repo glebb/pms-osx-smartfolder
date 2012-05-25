@@ -1,0 +1,22 @@
+apply plugin: 'java'  // Java plugin to build our JAR artifact.
+apply plugin: 'maven'  // Maven plugin to install artifact in local Maven repo.
+apply plugin: 'application'
+apply plugin: 'groovy'
+
+mainClassName = 'com.glebb.osxsmartfolder.Plugin'
+
+defaultTasks 'clean', 'jar'
+
+version = '1.0.0'
+jar.baseName = 'osxsmartfolders' // otherwise it defaults to the directory name
+
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+dependencies {
+	compile group: 'net.pms', name: 'pms', version: '1.53.0-SNAPSHOT'
+	groovy group: 'org.codehaus.groovy', name: 'groovy', version: '1.8.6'
+}
