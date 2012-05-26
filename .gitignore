@@ -1,7 +1,7 @@
 .classpath
 .project
 .settings/
-lib/
+lib/*.jar
 dist/*.jar
 bin/
 *.class

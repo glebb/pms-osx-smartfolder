@@ -11,10 +11,12 @@ OSX Smart Folder Plugin is written in Groovy!
 Prerequisities: install groovy (and gradle if wanting to compile with that). Easiest way to get them via [brew](http://mxcl.github.com/homebrew/) in OS X
 
 There is two ways to build OSX Smart Folder Plugin:
-1. Using build script: "./tojar.sh"
-2. Using gradle: "gradle"
+   1. Using build script: "./tojar.sh"
+   2. Using gradle: "gradle"
 
-Tojar.sh will bundle necessary groovy files inside the jar, so the plugin can be used as is. Before you run the script, please edit the file and make necessary changes (set paths and dependencies).
+tojar.sh will bundle necessary groovy files inside the jar, so the plugin can be used as is. Before you run the script, please edit the file and make necessary changes (set paths and dependencies).
+Make sure you copy pms jar (e.g. pms-1.53.0-SNAPSHOT-jar-with-dependencies.jar) to lib/
+
 Gradle will not include groovy, so if this option is used, groovy must be included in PMS (which is not the current state of PMS). With gradle you don't need to do any manual set up.
  
 ## Use
