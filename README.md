@@ -23,6 +23,8 @@ Gradle will not include groovy, so if this option is used, groovy must be includ
 Place the compiled jar to plugins directory in PMS. Uncommenting and modifying the last part in tojar.sh will do this for you automatically (used for development).
 You will want to use to jar compiled with tojar.sh with the official PS3 Media Server builds. The plugin jar without embedded groovy will not work.
 
+You can download the [jar-with-groovy](http://www.displayofpatience.net/files/osxsmartfolders-jar-with-groovy-1.0.0.jar) (ready to be used with current PMS)
+
 ## Todo
   * Currently OSX Smart Folder Plugin supports only folders saved in the default location. User can however save the folders to any location. It would be possible to user a config file where user can define custom paths for smart folders, but it's not implemented yet.
   * Refreshing (adding new files)?
