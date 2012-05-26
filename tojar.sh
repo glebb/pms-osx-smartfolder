@@ -18,5 +18,5 @@ groovy -cp $PMSJAR ../../../GroovyWrapper -m com/glebb/osxsmartfolder/Plugin -d 
 
 #Deploy
 cd ../../../
-cp dist/osxsmartfolders-jar-with-groovy-1.0.0.jar $DEPLOYDIR    
+#cp dist/osxsmartfolders-jar-with-groovy-1.0.0.jar $DEPLOYDIR    
 
