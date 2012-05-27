@@ -8,25 +8,24 @@ When plugin is active, there will be a new root folder and under that there is a
 OSX Smart Folder Plugin is written in Groovy!
 
 ## Build
-Prerequisities: install groovy (and gradle if wanting to compile with that). Easiest way to get them via [brew](http://mxcl.github.com/homebrew/) in OS X
+Prerequisities:
+   * Gradle (build system)
+   * PMS (1.5+) in local maven or gradle repository. 
 
-There is two ways to build OSX Smart Folder Plugin:
-   1. Using build script: "./tojar.sh"
-   2. Using gradle: "gradle"
-
-tojar.sh will bundle necessary groovy files inside the jar, so the plugin can be used as is. Before you run the script, please edit the file and make necessary changes (set paths and dependencies).
-Make sure you copy pms jar (e.g. pms-1.53.0-SNAPSHOT-jar-with-dependencies.jar) to lib/
-
-Gradle will not include groovy, so if this option is used, groovy must be included in PMS (which is not the current state of PMS). With gradle you only need to make sure you have pms version 1.5+ in your local maven or gradle repository. If you are able to compile PMS, just install it to local repo by "mvn install"
+To build, type:
+``
+gradle
+``
+Easiest way to get gradle is via [brew](http://mxcl.github.com/homebrew/) in OS X.
+You need to make sure you have pms version 1.5+ in your local maven or gradle repository. If you are able to compile PMS, just install it to local repo by "mvn install"
  
 ## Use
-Place the compiled jar to plugins directory in PMS. Uncommenting and modifying the last part in tojar.sh will do this for you automatically (used for development).
-You will want to use to jar compiled with tojar.sh with the official PS3 Media Server builds. The plugin jar without embedded groovy will not work.
+Place the compiled jar (from build/libs/) to plugins/ directory in PMS. 
 
-You can download the [jar-with-groovy](http://www.displayofpatience.net/files/osxsmartfolders-jar-with-groovy-1.0.0.jar) (ready to be used with current PMS)
+You can download the ready-made [jar](http://www.displayofpatience.net/files/osxsmartfolders-jar-with-groovy-1.0.0.jar) (ready to be used with current PMS)
 
-## Todo
+## Todo / Ideas
   * Currently OSX Smart Folder Plugin supports only folders saved in the default location. User can however save the folders to any location. It would be possible to user a config file where user can define custom paths for smart folders, but it's not implemented yet.
-  * Refreshing (adding new files)?
+  * Dynamic refreshing (adding new files)?
 
 Copyright (c) 2012 Antti Niiles

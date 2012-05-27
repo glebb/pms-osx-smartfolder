@@ -16,7 +16,17 @@ repositories {
 	mavenCentral()
 }
 
+
+configurations {
+	releaseJars
+}
+
 dependencies {
 	compile group: 'net.pms', name: 'pms', version: '1.5+'
 	groovy group: 'org.codehaus.groovy', name: 'groovy', version: '1.8.6'
+	releaseJars group: 'org.codehaus.groovy', name: 'groovy', version: '1.8.6'
+}
+
+jar {
+	from configurations.releaseJars.collect { it.isDirectory() ? it : zipTree(it) }
 }
