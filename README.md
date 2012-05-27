@@ -17,7 +17,7 @@ There is two ways to build OSX Smart Folder Plugin:
 tojar.sh will bundle necessary groovy files inside the jar, so the plugin can be used as is. Before you run the script, please edit the file and make necessary changes (set paths and dependencies).
 Make sure you copy pms jar (e.g. pms-1.53.0-SNAPSHOT-jar-with-dependencies.jar) to lib/
 
-Gradle will not include groovy, so if this option is used, groovy must be included in PMS (which is not the current state of PMS). With gradle you don't need to do any manual set up.
+Gradle will not include groovy, so if this option is used, groovy must be included in PMS (which is not the current state of PMS). With gradle you only need to make sure you have pms version 1.5+ in your local maven or gradle repository. If you are able to compile PMS, just install it to local repo by "mvn install"
  
 ## Use
 Place the compiled jar to plugins directory in PMS. Uncommenting and modifying the last part in tojar.sh will do this for you automatically (used for development).

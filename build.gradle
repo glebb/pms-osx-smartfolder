@@ -17,6 +17,6 @@ repositories {
 }
 
 dependencies {
-	compile group: 'net.pms', name: 'pms', version: '1.53.0-SNAPSHOT'
+	compile group: 'net.pms', name: 'pms', version: '1.5+'
 	groovy group: 'org.codehaus.groovy', name: 'groovy', version: '1.8.6'
 }
