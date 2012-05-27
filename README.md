@@ -17,8 +17,14 @@ To build, type:
 gradle
 ``
 Easiest way to get gradle is via [brew](http://mxcl.github.com/homebrew/) in OS X.
-You need to make sure you have pms version 1.5+ in your local maven or gradle repository. If you are able to compile PMS, just install it to local repo by "mvn install"
- 
+You need to make sure you have pms version 1.5+ in your local maven or gradle repository. If you are able to compile PMS, just install it to local repo by: 
+```
+mvn install
+```
+in PMS source root.
+
+Notice: the plugin jar will contain groovy embedded.
+  
 ## Use
 Place the compiled jar (from build/libs/) to plugins/ directory in PMS. 
 
