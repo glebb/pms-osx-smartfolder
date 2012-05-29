@@ -29,16 +29,17 @@ import com.sun.jna.Platform
 
 import net.pms.PMS
 import net.pms.dlna.DLNAResource;
-import net.pms.dlna.RealFile
 import net.pms.dlna.virtual.VirtualFolder;
 import net.pms.external.AdditionalFolderAtRoot;
 
 class Plugin implements AdditionalFolderAtRoot {
 
 	private SmartFolderHelper sfHelper
-	private static final Logger logger = LoggerFactory.getLogger(PMS.class)
+
+	static final Logger logger = LoggerFactory.getLogger(PMS.class)
+	
 	public static final NAME = "OSX Smart Folders Plugin "
-	public static final VERSION = "1.0.0"
+	public static final VERSION = "1.0.1"
 	
 	private static final SAVED_SEARCHES_FOLDER = System.getenv()['HOME'] + "/Library/Saved Searches/"
 	
@@ -63,13 +64,13 @@ class Plugin implements AdditionalFolderAtRoot {
 
 	@Override
 	public DLNAResource getChild() {
-		return createRoot()
+		return createSmartFolderStructure()
 	}
 	
-	private DLNAResource createRoot() {
+	private DLNAResource createSmartFolderStructure() {
 		VirtualFolder vf = new VirtualFolder("OSX Smart Folders", null)
 		if (Platform.isMac()) {
-			populateFromSmartFolders(vf);
+			createSmartFolders(vf);
 		}
 		else {
 			logger.error(Plugin.NAME+": not running on OSX platform.")
@@ -78,13 +79,12 @@ class Plugin implements AdditionalFolderAtRoot {
 
 	}
 	
-	private void populateFromSmartFolders(VirtualFolder rootVf) {
-		List smart_folders = sfHelper.getFolders(SAVED_SEARCHES_FOLDER)
+	private void createSmartFolders(VirtualFolder rootVf) {
+		List smart_folders = sfHelper.getSmartFoldersFromFileSystem(SAVED_SEARCHES_FOLDER)
 		if (!smart_folders.isEmpty()) {
 			smart_folders.each {
 				def basename = FilenameUtils.getBaseName(it.name)
-				VirtualFolder subVf = new VirtualFolder(basename, null)
-				sfHelper.addFilesForSmartFolder(subVf, basename)
+				VirtualOSXSmartFolder subVf = new VirtualOSXSmartFolder(basename, null)
 				rootVf.addChild(subVf)
 			}
 		}
