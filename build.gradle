@@ -7,7 +7,7 @@ mainClassName = 'com.glebb.osxsmartfolder.Plugin'
 
 defaultTasks 'clean', 'jar'
 
-version = '1.0.1'
+version = '1.0.2'
 jar.baseName = 'osxsmartfolders' // otherwise it defaults to the directory name
 
 

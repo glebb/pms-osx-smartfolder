@@ -34,19 +34,16 @@ import net.pms.external.AdditionalFolderAtRoot;
 
 class Plugin implements AdditionalFolderAtRoot {
 
-	private SmartFolderHelper sfHelper
+	private OSXSmartFolderSystem osxSmartFolderSystem
 
 	static final Logger logger = LoggerFactory.getLogger(PMS.class)
 	
 	public static final NAME = "OSX Smart Folders Plugin "
-	public static final VERSION = "1.0.1"
-	
-	private static final SAVED_SEARCHES_FOLDER = System.getenv()['HOME'] + "/Library/Saved Searches/"
-	
+	public static final VERSION = "1.0.2"
 	
 	public Plugin() {
 		logger.info("Loading "  + NAME+ " " + VERSION)
-		sfHelper = new SmartFolderHelper()
+		osxSmartFolderSystem = new OSXSmartFolderSystem()
 	}
 
 	public String name() {
@@ -64,33 +61,6 @@ class Plugin implements AdditionalFolderAtRoot {
 
 	@Override
 	public DLNAResource getChild() {
-		return createSmartFolderStructure()
+		return osxSmartFolderSystem.createFolderStructure()
 	}
-	
-	private DLNAResource createSmartFolderStructure() {
-		VirtualFolder vf = new VirtualFolder("OSX Smart Folders", null)
-		if (Platform.isMac()) {
-			createSmartFolders(vf);
-		}
-		else {
-			logger.error(Plugin.NAME+": not running on OSX platform.")
-		}
-		return vf
-
-	}
-	
-	private void createSmartFolders(VirtualFolder rootVf) {
-		List smart_folders = sfHelper.getSmartFoldersFromFileSystem(SAVED_SEARCHES_FOLDER)
-		if (!smart_folders.isEmpty()) {
-			smart_folders.each {
-				def basename = FilenameUtils.getBaseName(it.name)
-				VirtualOSXSmartFolder subVf = new VirtualOSXSmartFolder(basename, null)
-				rootVf.addChild(subVf)
-			}
-		}
-		else {
-			logger.info(NAME+": No Smart Folders found.")
-		}
-	}
-
 }

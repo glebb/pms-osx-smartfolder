@@ -1,31 +1,32 @@
 package com.glebb.osxsmartfolder.tests
-import groovy.mock.interceptor.StubFor
-import groovy.util.GroovyTestCase;
 
 
-import net.pms.dlna.virtual.VirtualFolder
-
-import org.junit.Test;
+import org.junit.Test
+import static org.junit.Assert.*
 
 import com.glebb.osxsmartfolder.External
-import com.glebb.osxsmartfolder.SmartFolderHelper
 
-
-
-class ExternalExecuteTest extends GroovyTestCase {
-	
+class ExternalExecuteTest {
+	/*
+	 * Integration tests (executes real commands)
+	 */
 	@Test
-	void test_nonExistingCommandReturnsEmptyList() {
+	void nonExistingCommandReturnsEmptyList() {
 		def l = ["BLAH_this_should_not_be_found", "--help"]
-		List temp = External.execute(l) //Actually executes the command
+		List temp = External.execute(l)
 		assertTrue(temp.isEmpty())
 	}
 	
 	@Test
-		void test_emptyQueryReturnEmptyList() {
+	void emptyQueryReturnEmptyList() {
 		List temp = External.execute([])
 		assertTrue(temp.isEmpty())
 	}
 		
+	@Test
+	void mdfindExecutesCorrectly() {
+		List temp = External.execute(["mdfind", "--help"])
+		assertTrue(temp.get(1).startsWith("Usage: mdfind"))
+	}
+		
 }
-
