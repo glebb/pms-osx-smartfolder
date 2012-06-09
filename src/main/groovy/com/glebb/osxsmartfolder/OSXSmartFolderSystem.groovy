@@ -2,6 +2,7 @@ package com.glebb.osxsmartfolder
 
 import groovy.io.FileType
 
+
 import java.util.List;
 
 import net.pms.PMS
@@ -14,19 +15,23 @@ import org.slf4j.LoggerFactory
 
 import com.sun.jna.Platform
 
-
+/*
+ * Creates the VirtualFolder structure based on Smart Folders that are found
+ * from the user's system.
+ */
 class OSXSmartFolderSystem {
 	
 	private static final SAVED_SEARCHES_FOLDER = System.getenv()['HOME'] + "/Library/Saved Searches/"
 	
 	static final Logger logger = LoggerFactory.getLogger(PMS.class)
 	
-	public OSXSmartFolderSystem() {
-	}
-	
+	/*
+	 * Creates the root folder and on OS X platform tries to populate it
+	 * with Smart Folders child objects.
+	 */
 	public DLNAResource createFolderStructure() {
 		VirtualFolder vf = new VirtualFolder("OSX Smart Folders", null)
-		if (PlatformAdapter.isMac()) {
+		if (PlatformProxy.isMac()) {
 			createSubFolders(vf);
 		}
 		else {
@@ -37,11 +42,11 @@ class OSXSmartFolderSystem {
 	}
 	
 	private void createSubFolders(VirtualFolder rootVf) {
-		List smart_folders = External.getListOfSmartFoldersFromFilesystem(SAVED_SEARCHES_FOLDER)
+		List smart_folders = Utils.getListOfSmartFoldersFromFilesystem(SAVED_SEARCHES_FOLDER)
 		if (!smart_folders.isEmpty()) {
 			smart_folders.each {
 				def basename = FilenameUtils.getBaseName(it.name)
-				VirtualOSXSmartFolder subVf = new VirtualOSXSmartFolder(basename, null)
+				VirtualSmartFolder subVf = new VirtualSmartFolder(basename, null)
 				rootVf.addChild(subVf)
 			}
 		}
@@ -52,11 +57,15 @@ class OSXSmartFolderSystem {
 	
 }
 
-class External {
+/*
+ * Collection of static helper methods which deal with filesystem and external
+ * programs.
+ */
+class Utils {
 	private static final Logger logger = LoggerFactory.getLogger(PMS.class)
 	
 	/*
-	 * Execute external command on system.
+	 * Execute any external command on system.
 	 * @param query List of string, first being the command to be executed,
 	 * followed by parameters as items in list. Return output lines as list, or
 	 * empty list if command is not found. 
@@ -76,6 +85,9 @@ class External {
 		return l
 	}
 	
+	/*
+	 * Returns a list of .savedSearch File objects found from given path.
+	 */
 	static List getListOfSmartFoldersFromFilesystem(path) {
 		def l = []
 		def dir = new File(path)

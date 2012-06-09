@@ -2,7 +2,10 @@ package com.glebb.osxsmartfolder
 
 import com.sun.jna.Platform
 
-class PlatformAdapter {
+/*
+ * Wraps Platfrom class for decoupling purposes.
+ */
+class PlatformProxy {
 	static boolean isMac() {
 		return Platform.isMac()	
 	}

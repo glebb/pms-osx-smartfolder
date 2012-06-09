@@ -24,6 +24,5 @@ You can download the ready-made [jar](http://www.displayofpatience.net/files/osx
 
 ## Todo / Ideas
   * Currently OSX Smart Folder Plugin supports only folders saved in the default location. User can however save the folders to any location. It would be possible to user a config file where user can define custom paths for smart folders, but it's not implemented yet.
-  * Dynamic refreshing (adding new files)?
 
 Copyright (c) 2012 Antti Niiles

@@ -32,14 +32,17 @@ import net.pms.dlna.DLNAResource;
 import net.pms.dlna.virtual.VirtualFolder;
 import net.pms.external.AdditionalFolderAtRoot;
 
+/*
+ * OSX Smart Folders Plugin for PMS
+ */
 class Plugin implements AdditionalFolderAtRoot {
 
 	private OSXSmartFolderSystem osxSmartFolderSystem
 
 	static final Logger logger = LoggerFactory.getLogger(PMS.class)
 	
-	public static final NAME = "OSX Smart Folders Plugin "
-	public static final VERSION = "1.0.2"
+	static final NAME = "OSX Smart Folders Plugin"
+	static final VERSION = "1.0.2"
 	
 	public Plugin() {
 		logger.info("Loading "  + NAME+ " " + VERSION)
