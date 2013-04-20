@@ -1,6 +1,7 @@
 package com.glebb.osxsmartfolder
 
 import groovy.io.FileType
+import groovy.util.Node;
 
 
 import java.util.List;
@@ -45,8 +46,8 @@ class OSXSmartFolderSystem {
 		List smart_folders = Utils.getListOfSmartFoldersFromFilesystem(SAVED_SEARCHES_FOLDER)
 		if (!smart_folders.isEmpty()) {
 			smart_folders.each {
-				def basename = FilenameUtils.getBaseName(it.name)
-				VirtualSmartFolder subVf = new VirtualSmartFolder(basename, null)
+				def savedSearch = new SavedSearch(it.canonicalPath)
+				VirtualSmartFolder subVf = new VirtualSmartFolder(null, savedSearch)
 				rootVf.addChild(subVf)
 			}
 		}
@@ -63,6 +64,7 @@ class OSXSmartFolderSystem {
  */
 class Utils {
 	private static final Logger logger = LoggerFactory.getLogger(PMS.class)
+	private static final MDFIND = "/usr/bin/mdfind"
 	
 	/*
 	 * Execute any external command on system.
@@ -74,6 +76,7 @@ class Utils {
 		def l = []
 		if (query.isEmpty()) return l
 		try {
+			logger.debug(Plugin.NAME + " excutes " + query.toString().replace(",", ""))
 			def process = query.execute()
 			process.in.eachLine { line ->
 				l.add(line)
@@ -97,5 +100,52 @@ class Utils {
 		}
 		return l
 	}
+	
+	/*
+	 * Creates mdfind command with parameters
+	 */
+	public static List getFileList(savedSearch) {
+		def savedSearchPlist = PlistUtility.parseXmlPlistText(savedSearch.loadData())
+		def command = [MDFIND, "-s", savedSearch.getBaseName()]
+		savedSearchPlist.SearchCriteria['FXScopeArrayOfPaths'].each {
+			if (it == "kMDQueryScopeComputer") return
+			else {
+				command.add("-onlyin")
+				command.add(it)
+			}
+		}
+		return command
+	}
 
+}
+
+/*
+ * Get contents of .savedSearch Plist
+ */
+public interface ISavedSearch {
+	String loadData()
+	String getBaseName()
+}
+
+/*
+ * Loads the given file
+ */
+class SavedSearch implements ISavedSearch
+{
+	
+	private filename
+	
+	public SavedSearch(filename) {
+		this.filename = filename
+	}
+
+	@Override
+	public String loadData() {
+		return new File(filename).text
+	}
+
+	@Override
+	public String getBaseName() {
+		return FilenameUtils.getBaseName(filename)
+	}
 }

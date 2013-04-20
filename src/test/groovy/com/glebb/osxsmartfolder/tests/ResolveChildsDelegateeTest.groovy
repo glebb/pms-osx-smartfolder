@@ -11,6 +11,7 @@ import org.junit.Test
 
 import static org.junit.Assert.*
 
+import com.glebb.osxsmartfolder.ISavedSearch
 import com.glebb.osxsmartfolder.ResolveChildsDelegatee
 import com.glebb.osxsmartfolder.VirtualSmartFolder
 import com.glebb.osxsmartfolder.Utils
@@ -19,6 +20,8 @@ import com.glebb.osxsmartfolder.PlatformProxy
 class ResolveChildsDelegateeTest {
 	
 	private ResolveChildsDelegatee resolveChildsDelegatee
+	def fakeSavedSearch = new FakeSavedSearch()
+	
 	
 	@After
 	public void tearDown() {
@@ -33,9 +36,13 @@ class ResolveChildsDelegateeTest {
 	void itShouldNotAddResourceWhenThereIsNoFiles() {
 		setReturnValueForExecute( [] )
 		def mock = new MockFor(VirtualSmartFolder)
-		mock.demand.addChild(0) { "should not be called" }
+		mock.demand.with {
+			addChild(0) { "should not be called" }
+			setLastRefreshTime(1) {}
+		}
 		mock.use {
-			resolveChildsDelegatee = new ResolveChildsDelegatee(new VirtualSmartFolder("temp", null), "temp")
+			def tempFile = new File("/tmp/tmp.txt")
+			resolveChildsDelegatee = new ResolveChildsDelegatee(new VirtualSmartFolder("temp", fakeSavedSearch), fakeSavedSearch)
 			resolveChildsDelegatee.discoverChildren()
 		}
 	}
@@ -44,9 +51,12 @@ class ResolveChildsDelegateeTest {
 	void singleResourceShouldBeAddedToParent() {
 		setReturnValueForExecute( ["/tmp/test.mp3"] )
 		def mock = new MockFor(VirtualSmartFolder)
-		mock.demand.addChild(1) {}
+		mock.demand.with {
+			addChild(1) {}
+			setLastRefreshTime(1) {}
+		}
 		mock.use {
-			resolveChildsDelegatee = new ResolveChildsDelegatee(new VirtualSmartFolder("temp", null), "temp")
+			resolveChildsDelegatee = new ResolveChildsDelegatee(new VirtualSmartFolder("temp", fakeSavedSearch), fakeSavedSearch)
 			resolveChildsDelegatee.discoverChildren()
 		} 
 	}
@@ -55,9 +65,12 @@ class ResolveChildsDelegateeTest {
 	void multipleResourcesShouldBeAddedToParent() {
 		setReturnValueForExecute( ["/tmp/test.mp3", "/tmp/second.mp3"] )
 		def mock = new MockFor(VirtualSmartFolder)
-		mock.demand.addChild(2) {}
+		mock.demand.with {
+			addChild(2) {}
+			setLastRefreshTime(1) {}
+		}
 		mock.use {
-			resolveChildsDelegatee = new ResolveChildsDelegatee(new VirtualSmartFolder("temp", null), "temp")
+			resolveChildsDelegatee = new ResolveChildsDelegatee(new VirtualSmartFolder("temp", fakeSavedSearch), fakeSavedSearch)
 			resolveChildsDelegatee.discoverChildren()
 		}
 	}
@@ -65,7 +78,7 @@ class ResolveChildsDelegateeTest {
 	@Test
 	void refreshShouldNotBeDoneWhenFilelistRemainsTheSame() {
 		setReturnValueForExecute( ["/tmp/test.mp3"] )
-		resolveChildsDelegatee = new ResolveChildsDelegatee(new VirtualSmartFolder("temp", null), "temp")
+		resolveChildsDelegatee = new ResolveChildsDelegatee(new VirtualSmartFolder("temp", fakeSavedSearch), fakeSavedSearch)
 		resolveChildsDelegatee.discoverChildren()
 		setReturnValueForExecute( ["/tmp/test.mp3"] )
 		assertFalse(resolveChildsDelegatee.refreshChildren())
@@ -75,9 +88,11 @@ class ResolveChildsDelegateeTest {
 	@Test
 	void refreshShouldBeDoneWhenFilelistChanges() {
 		setReturnValueForExecute( ["/tmp/test.mp3"] )
-		resolveChildsDelegatee = new ResolveChildsDelegatee(new VirtualSmartFolder("temp", null), "temp")
+		def vf = new VirtualSmartFolder("temp", fakeSavedSearch)
+		resolveChildsDelegatee = new ResolveChildsDelegatee(vf, fakeSavedSearch)
 		resolveChildsDelegatee.discoverChildren()
 		setReturnValueForExecute( ["/tmp/blah.mp3"] )
+		vf.setLastRefreshTime(0)
 		assertTrue(resolveChildsDelegatee.refreshChildren())
 	}
 
@@ -87,16 +102,20 @@ class ResolveChildsDelegateeTest {
 		setReturnValueForExecute( [toBeRemoved, "/tmp/blah.mp3"] )
 		def mock = new StubFor(VirtualSmartFolder)
 		def receivedParameter = null
+
 		mock.demand.with {
 			addChild(100) {}
 			getChildren(100) {}
+			getLastRefreshTime(1) {0} 
+			setLastRefreshTime(2) {}
 			removeChildren(1) {List l -> receivedParameter = l;}
 		}
 		mock.use {
-			resolveChildsDelegatee = new ResolveChildsDelegatee(new VirtualSmartFolder("temp", null), "temp")
+			resolveChildsDelegatee = new ResolveChildsDelegatee(new VirtualSmartFolder("temp", fakeSavedSearch), fakeSavedSearch)
 			resolveChildsDelegatee.discoverChildren()
 			setReturnValueForExecute(  ["/tmp/blah.mp3"] )
 			resolveChildsDelegatee.refreshChildren()
+			resolveChildsDelegatee.doRefreshChildren()
 		}
 		assertEquals([toBeRemoved], receivedParameter)
 	}
@@ -108,13 +127,17 @@ class ResolveChildsDelegateeTest {
 		def mock = new StubFor(VirtualSmartFolder)
 		mock.demand.with {
 			addChild(2) {}
+			getLastRefreshTime(1) {0}
 			getChildren(1) {}
+			setLastRefreshTime(2) {}
+			
 		}
 		mock.use {
-			resolveChildsDelegatee = new ResolveChildsDelegatee(new VirtualSmartFolder("temp", null), "temp")
+			resolveChildsDelegatee = new ResolveChildsDelegatee(new VirtualSmartFolder("temp", fakeSavedSearch), fakeSavedSearch)
 			resolveChildsDelegatee.discoverChildren()
 			setReturnValueForExecute(  ["/tmp/blah.mp3", toBeAdded] )
 			resolveChildsDelegatee.refreshChildren()
+			resolveChildsDelegatee.doRefreshChildren()
 		}
 	}
 	
@@ -127,13 +150,17 @@ class ResolveChildsDelegateeTest {
 		mock.demand.with {
 			addChild(2) {}
 			getChildren(100) {}
+			getLastRefreshTime(1) {0}
 			removeChildren(0) { "should not be called"}
+			setLastRefreshTime(2) {}
+			
 		}
 		mock.use {
-			resolveChildsDelegatee = new ResolveChildsDelegatee(new VirtualSmartFolder("temp", null), "temp")
+			resolveChildsDelegatee = new ResolveChildsDelegatee(new VirtualSmartFolder("temp", fakeSavedSearch), fakeSavedSearch)
 			resolveChildsDelegatee.discoverChildren()
 			setReturnValueForExecute(  ["/tmp/blah.mp3", toBeAdded] )
 			resolveChildsDelegatee.refreshChildren()
+			resolveChildsDelegatee.doRefreshChildren()
 		}
 	}
 
@@ -144,13 +171,41 @@ class ResolveChildsDelegateeTest {
 		def receivedParameter = null
 		mock.demand.with {
 			addChild(2) {}
+			getLastRefreshTime(1) {0}
 			getChildren(100) {}
+			setLastRefreshTime(2) {}
+			
 		}
 		mock.use {
-			resolveChildsDelegatee = new ResolveChildsDelegatee(new VirtualSmartFolder("temp", null), "temp")
+			resolveChildsDelegatee = new ResolveChildsDelegatee(new VirtualSmartFolder("temp", fakeSavedSearch), fakeSavedSearch)
 			resolveChildsDelegatee.discoverChildren()
 			setReturnValueForExecute(  ["/tmp/test.mp3","/tmp/blah.mp3"]  )
 			resolveChildsDelegatee.refreshChildren()
+			resolveChildsDelegatee.doRefreshChildren()
 		}
 	}
+}
+
+class FakeSavedSearch implements ISavedSearch {
+
+	private static data
+	
+	public FakeSavedSearch() {
+		data = Fixtures.savedSearchWithMultipleScopePaths
+	}
+	
+	@Override
+	public String loadData() {
+		return data
+	}
+
+	@Override
+	public String getBaseName() {
+		return "/tmp/test"
+	}	
+	
+	public setData(newData) {
+		data = newData
+	}
+	
 }

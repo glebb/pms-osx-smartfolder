@@ -7,6 +7,8 @@ When plugin is active, there will be a new root folder and under that there is a
 
 OSX Smart Folder Plugin is written in Groovy!
 
+Tested with PS3 Media Server 1.72.0
+
 ## Build
 Prerequisities:
    * Gradle (build system)
@@ -20,9 +22,13 @@ You need to make sure you have pms version 1.5+ in your local maven or gradle re
 ## Use
 Place the compiled jar (from build/libs/) to plugins/ directory in PMS. 
 
-You can download the ready-made [jar](http://www.displayofpatience.net/files/osxsmartfolders/) (ready to be used with current PMS)
+You can download the ready-made [jar](http://www.displayofpatience.com/files/osxsmartfolders/) (ready to be used with current PMS)
 
 ## Todo / Ideas
   * Currently OSX Smart Folder Plugin supports only folders saved in the default location. User can however save the folders to any location. It would be possible to user a config file where user can define custom paths for smart folders, but it's not implemented yet.
+
+## Changelog
+  * 1.0.3 / 20.4.2013: Bug fix: Respect the scope of search. Minor optimization.
+
 
 Copyright (c) 2012 Antti Niiles

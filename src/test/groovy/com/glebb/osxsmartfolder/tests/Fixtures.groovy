@@ -1,0 +1,256 @@
+package com.glebb.osxsmartfolder.tests
+
+class Fixtures {
+	static def savedSearchWithOneScopePath = '''<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CompatibleVersion</key>
+	<integer>1</integer>
+	<key>RawQuery</key>
+	<string>(((kMDItemDisplayName = ".avi*"cdw))) &amp;&amp; (true)</string>
+	<key>RawQueryDict</key>
+	<dict>
+		<key>FinderFilesOnly</key>
+		<true/>
+		<key>RawQuery</key>
+		<string>(((kMDItemDisplayName = ".avi*"cdw))) &amp;&amp; (true)</string>
+		<key>SearchScopes</key>
+		<array>
+			<string>/Users/antti/Movies</string>
+		</array>
+		<key>UserFilesOnly</key>
+		<true/>
+	</dict>
+	<key>SearchCriteria</key>
+	<dict>
+		<key>CurrentFolderPath</key>
+		<array>
+			<string>/Users/antti/Movies</string>
+		</array>
+		<key>FXCriteriaSlices</key>
+		<array>
+			<dict>
+				<key>criteria</key>
+				<array>
+					<string>kMDItemDisplayName</string>
+					<integer>120</integer>
+					<integer>104</integer>
+				</array>
+				<key>displayValues</key>
+				<array>
+					<string>Nimi</string>
+					<string>matches</string>
+					<string>.avi</string>
+				</array>
+				<key>rowType</key>
+				<integer>0</integer>
+				<key>subrows</key>
+				<array/>
+			</dict>
+		</array>
+		<key>FXScope</key>
+		<integer>1396925286</integer>
+		<key>FXScopeArrayOfPaths</key>
+		<array>
+			<string>/Users/antti/Movies</string>
+		</array>
+	</dict>
+	<key>SuggestedAttributes</key>
+	<array/>
+	<key>ViewSettings</key>
+	<dict>
+		<key>WindowState</key>
+		<dict>
+			<key>ShowPathbar</key>
+			<true/>
+			<key>ShowSidebar</key>
+			<true/>
+			<key>ShowStatusBar</key>
+			<false/>
+			<key>ShowToolbar</key>
+			<true/>
+			<key>SidebarWidth</key>
+			<integer>192</integer>
+			<key>WindowBounds</key>
+			<string>{{371, 246}, {770, 440}}</string>
+		</dict>
+	</dict>
+</dict>
+</plist>
+'''
+	
+static def savedSearchWithMultipleScopePaths = '''<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CompatibleVersion</key>
+	<integer>1</integer>
+	<key>RawQuery</key>
+	<string>(((kMDItemDisplayName = ".avi*"cdw))) &amp;&amp; (true)</string>
+	<key>RawQueryDict</key>
+	<dict>
+		<key>FinderFilesOnly</key>
+		<true/>
+		<key>RawQuery</key>
+		<string>(((kMDItemDisplayName = ".avi*"cdw))) &amp;&amp; (true)</string>
+		<key>SearchScopes</key>
+		<array>
+			<string>/Users/antti/Movies</string>
+			<string>/Users/antti/clips</string>
+		</array>
+		<key>UserFilesOnly</key>
+		<true/>
+	</dict>
+	<key>SearchCriteria</key>
+	<dict>
+		<key>CurrentFolderPath</key>
+		<array>
+			<string>/Users/antti/Movies</string>
+		</array>
+		<key>FXCriteriaSlices</key>
+		<array>
+			<dict>
+				<key>criteria</key>
+				<array>
+					<string>kMDItemDisplayName</string>
+					<integer>120</integer>
+					<integer>104</integer>
+				</array>
+				<key>displayValues</key>
+				<array>
+					<string>Nimi</string>
+					<string>matches</string>
+					<string>.avi</string>
+				</array>
+				<key>rowType</key>
+				<integer>0</integer>
+				<key>subrows</key>
+				<array/>
+			</dict>
+		</array>
+		<key>FXScope</key>
+		<integer>1396925286</integer>
+		<key>FXScopeArrayOfPaths</key>
+		<array>
+			<string>/Users/antti/Movies</string>
+			<string>/Users/antti/clips</string>
+		</array>
+	</dict>
+	<key>SuggestedAttributes</key>
+	<array/>
+	<key>ViewSettings</key>
+	<dict>
+		<key>WindowState</key>
+		<dict>
+			<key>ShowPathbar</key>
+			<true/>
+			<key>ShowSidebar</key>
+			<true/>
+			<key>ShowStatusBar</key>
+			<false/>
+			<key>ShowToolbar</key>
+			<true/>
+			<key>SidebarWidth</key>
+			<integer>192</integer>
+			<key>WindowBounds</key>
+			<string>{{371, 246}, {770, 440}}</string>
+		</dict>
+	</dict>
+</dict>
+</plist>
+'''
+
+static def savedSearchQueryScopeComputer = '''<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CompatibleVersion</key>
+	<integer>1</integer>
+	<key>RawQuery</key>
+	<string>(((_kMDItemGroupId = 7) &amp;&amp; (kMDItemDisplayName = "*mkv"cd))) &amp;&amp; (true)</string>
+	<key>RawQueryDict</key>
+	<dict>
+		<key>FinderFilesOnly</key>
+		<true/>
+		<key>RawQuery</key>
+		<string>(((_kMDItemGroupId = 7) &amp;&amp; (kMDItemDisplayName = "*mkv"cd))) &amp;&amp; (true)</string>
+		<key>SearchScopes</key>
+		<array>
+			<string>kMDQueryScopeComputer</string>
+		</array>
+		<key>UserFilesOnly</key>
+		<true/>
+	</dict>
+	<key>SearchCriteria</key>
+	<dict>
+		<key>FXCriteriaSlices</key>
+		<array>
+			<dict>
+				<key>criteria</key>
+				<array>
+					<string>kMDItemKind</string>
+					<integer>300</integer>
+					<integer>415</integer>
+				</array>
+				<key>displayValues</key>
+				<array>
+					<string>Kind</string>
+					<string>is</string>
+					<string>movies</string>
+				</array>
+				<key>rowType</key>
+				<integer>0</integer>
+				<key>subrows</key>
+				<array/>
+			</dict>
+			<dict>
+				<key>criteria</key>
+				<array>
+					<string>kMDItemDisplayName</string>
+					<integer>102</integer>
+					<integer>104</integer>
+				</array>
+				<key>displayValues</key>
+				<array>
+					<string>Nimi</string>
+					<string>ends with</string>
+					<string>mkv</string>
+				</array>
+				<key>rowType</key>
+				<integer>0</integer>
+				<key>subrows</key>
+				<array/>
+			</dict>
+		</array>
+		<key>FXScope</key>
+		<integer>1396929382</integer>
+		<key>FXScopeArrayOfPaths</key>
+		<array>
+			<string>kMDQueryScopeComputer</string>
+		</array>
+	</dict>
+	<key>SuggestedAttributes</key>
+	<array/>
+	<key>ViewSettings</key>
+	<dict>
+		<key>WindowState</key>
+		<dict>
+			<key>ShowPathbar</key>
+			<true/>
+			<key>ShowSidebar</key>
+			<true/>
+			<key>ShowStatusBar</key>
+			<false/>
+			<key>ShowToolbar</key>
+			<true/>
+			<key>SidebarWidth</key>
+			<integer>192</integer>
+			<key>WindowBounds</key>
+			<string>{{258, 289}, {770, 440}}</string>
+		</dict>
+	</dict>
+</dict>
+</plist>
+'''
+}

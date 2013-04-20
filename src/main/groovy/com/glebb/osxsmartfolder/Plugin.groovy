@@ -42,7 +42,7 @@ class Plugin implements AdditionalFolderAtRoot {
 	static final Logger logger = LoggerFactory.getLogger(PMS.class)
 	
 	static final NAME = "OSX Smart Folders Plugin"
-	static final VERSION = "1.0.2"
+	static final VERSION = "1.0.3"
 	
 	public Plugin() {
 		logger.info("Loading "  + NAME+ " " + VERSION)
