@@ -20,10 +20,12 @@ The build system will embed groovy to the jar.
 You need to make sure you have pms version 1.5+ in your local maven or gradle repository. If you are able to compile PMS, just install it to local repo by: ``mvn install`` in PMS source root.
   
 ## Use
-Place the compiled jar (from build/libs/) to plugins/ directory in PMS. 
+Place the compiled jar (from build/libs/) to plugins/ directory in PMS. Make sure you delete old version before copying new one. 
 
 You can download the ready-made jar (ready to be used with current PMS): 
   * [1.0.2](http://www.displayofpatience.net/files/osxsmartfolders/osxsmartfolders-1.0.2.jar)  
+  * [1.0.3](https://dl.dropboxusercontent.com/u/667886/osxsmartfolders/osxsmartfolders-1.0.3.jar)  
+
 
 ## Todo / Ideas
   * Currently OSX Smart Folder Plugin supports only folders saved in the default location. User can however save the folders to any location. It would be possible to user a config file where user can define custom paths for smart folders, but it's not implemented yet.
