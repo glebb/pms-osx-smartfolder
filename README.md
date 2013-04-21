@@ -22,13 +22,14 @@ You need to make sure you have pms version 1.5+ in your local maven or gradle re
 ## Use
 Place the compiled jar (from build/libs/) to plugins/ directory in PMS. 
 
-You can download the ready-made [jar](https://dl.dropboxusercontent.com/u/667886/osxsmartfolders/osxsmartfolders-1.0.3.jar) (ready to be used with current PMS)
+You can download the ready-made jar (ready to be used with current PMS): 
+  * [1.0.2](https://dl.dropboxusercontent.com/u/667886/osxsmartfolders/osxsmartfolders-1.0.3.jar)  
 
 ## Todo / Ideas
   * Currently OSX Smart Folder Plugin supports only folders saved in the default location. User can however save the folders to any location. It would be possible to user a config file where user can define custom paths for smart folders, but it's not implemented yet.
 
 ## Changelog
-  * 1.0.3 / 20.4.2013: Bug fix: Respect the scope of search. Minor optimization.
+  * 1.0.3 / xx.4.2013: Bug fix: Respect the scope of search. Minor optimization.
 
 
 Copyright (c) 2012 Antti Niiles
