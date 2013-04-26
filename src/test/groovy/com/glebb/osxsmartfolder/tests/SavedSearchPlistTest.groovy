@@ -43,5 +43,12 @@ class SavedSearchPlistTest {
 		assertEquals(expected, result)
 	}
 
+	@Test
+	void itHandlesIssue3MissingInstructionForTypeReal()
+	{
+		def result = PlistUtility.parseXmlPlistText(Fixtures.savedSearchIssue3)
+		assertEquals(1, result.SearchCriteria['FXScopeArrayOfPaths'].size())
+	}
+
 }
 

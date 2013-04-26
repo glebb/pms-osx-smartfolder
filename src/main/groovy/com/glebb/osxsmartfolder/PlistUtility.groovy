@@ -31,6 +31,8 @@ class PlistUtility {
 				   return true
 			   case "data":
 				   return node.text().decodeBase64()
+			   case "real":
+				   return Double.parseDouble(node.text())
 			   default:
 				   assert false
 		   }
