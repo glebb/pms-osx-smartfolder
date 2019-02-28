@@ -33,4 +33,4 @@ You can download the ready-made jar (ready to be used with current PMS):
   * 1.0.3 / 26.4.2013: Bug fix: Respect the scope of search. Minor optimization.
 
 
-Copyright (c) 2012 Antti Niiles
+Copyright (c) 2012
